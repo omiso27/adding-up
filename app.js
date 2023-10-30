@@ -77,13 +77,12 @@ rl.on('line', lineString => { //rlオブジェクトでlineというイベント
     prefectureDataMap.set(prefecture, value); //保存したオブジェクトが取得
   }
 });
-rl.on('close',() =>{
+rl.on('close',() =>{ //closeイベントは、すべての行の読み込みが終わった時に呼び出される。
+  for (const [key,value] of prefectureDataMap) {
+    value.change = value.after / value.before; //都道府県ごとの変化率
+  }
   console.log(prefectureDataMap);
 })
-
-/**
- * closeイベントは、すべての行の読み込みが終わった時に呼び出される。
- */
 
 /**
  * Stream
@@ -94,4 +93,15 @@ rl.on('close',() =>{
  * データを読み込み処理を監視するイベントと、そのイベントが発生した時（データ読み込みが進んだ）に実行する関数の2つをStreamに対して設定しておく。
  * 
  * あらかじめイベントが発生した時に実行される関数を設定しておいて、起こったイベントに応じて処理することをイベント駆動型プログラミングと呼ぶ。
+ */
+
+/**
+ * for-of構文
+ * 
+ * Mapやarrayの中身をofの前で与えられた変死ううに代入することで、forループと同じ処理をする書き方
+ * 配列に含まれる要素を使いたいだけで、添字は不要。
+ * 
+ * 
+ * 
+ * 
  */
