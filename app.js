@@ -81,7 +81,14 @@ rl.on('close',() =>{ //closeイベントは、すべての行の読み込みが�
   for (const [key,value] of prefectureDataMap) {
     value.change = value.after / value.before; //都道府県ごとの変化率
   }
-  console.log(prefectureDataMap);
+  // console.log(prefectureDataMap);
+
+  //データの並び替え
+  
+  const rankingArray = Array.from(prefectureDataMap).sort((pair1,pair2) => {
+    return pair2[1].change - pair1[1].change;
+  });
+  console.log(rankingArray);
 })
 
 /**
@@ -98,10 +105,10 @@ rl.on('close',() =>{ //closeイベントは、すべての行の読み込みが�
 /**
  * for-of構文
  * 
- * Mapやarrayの中身をofの前で与えられた変死ううに代入することで、forループと同じ処理をする書き方
+ * MapやArrayの中身をofの前で与えられた変死ううに代入することで、forループと同じ処理をする書き方
  * 配列に含まれる要素を使いたいだけで、添字は不要。
  * 
+ * Mapにfor-of分を使うと、キーと値の2つの要素からなる配列が前で与えられた変数へ代入される。
  * 
- * 
- * 
+ *分割代入法 const [変数名1(key), 変数名2(value)] 
  */
