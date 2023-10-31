@@ -88,8 +88,24 @@ rl.on('close',() =>{ //closeイベントは、すべての行の読み込みが�
   const rankingArray = Array.from(prefectureDataMap).sort((pair1,pair2) => {
     return pair2[1].change - pair1[1].change;
   });
-  console.log(rankingArray);
+
+  /**
+   * Array.from(prefectureDataMap)の部分で、連想配列を普通の配列に変換する処理を行なっている。
+   * さらに、Arrayのsort関数に、比較関数として無名関数を私ている
+   * pair1 都道府県名、 pair2 集計結果
+   */
+  
+  // console.log(rankingArray);
+
+  //出力形式を整える
+
+  const rankingStrings = rankingArray.map(([key, value]) => { //map関数　※連想配列のMapと違うことに注意
+    return `${key}: ${value.before}=>${value.after} 変化率: ${value.change}`;
+  });
+  console.log(rankingStrings);
 })
+
+//「Map の キーと値が要素になった配列を要素 [key, value] として受け取り、それを文字列に変換する」処理
 
 /**
  * Stream
@@ -112,3 +128,19 @@ rl.on('close',() =>{ //closeイベントは、すべての行の読み込みが�
  * 
  *分割代入法 const [変数名1(key), 変数名2(value)] 
  */
+
+ /**
+  * 比較関数
+  * 
+  * sort関数に渡す関数のこと。
+  * 
+  * 比較関数は 2 つの引数(前者の引数をpair1、後者の引数をpair2とする)を受けとって処理した結果、
+  * 
+  * 負の整数ならpair1を前に置く
+  * 正の整数ならpair1を後ろに置く
+  * 0なら並びは変わらない
+  * 
+  * 変化率の降順(値の大きいもの→値の小さいもの)に並び替えを行いたい
+  * pair2 - pair1した結果、負の整数ならpair1の方が大きいと分かる
+  * 処理した結果、負の整数なら比較関数はpair1を前に置く
+  */
